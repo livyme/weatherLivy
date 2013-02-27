@@ -49,6 +49,12 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [self getWeatherData];
+}
+
+#pragma mark get Data 
+
+- (void) getWeatherData {
     // Get Current Weather Information From Weather Underground website in JSON format
     NSData* weatherData = [NSData dataWithContentsOfURL:weatherCurrentJSONURL];
     
