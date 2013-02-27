@@ -5,6 +5,10 @@
 //  Created by Livy on 2/26/13.
 //  Copyright (c) 2013 Livy. All rights reserved.
 //
+
+//The following Weather Underground API was registered to Livy.... For testing purposes....
+//Livy reserves the rights to invoke the API at any time.
+//Please do not abuse this API.
 #define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
 #define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuan_shiliangzhuanhua.png"]
