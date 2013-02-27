@@ -120,8 +120,7 @@
 //If current row is selected
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //Do nothing.  Just deselect current row.
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    [[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
