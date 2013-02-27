@@ -34,6 +34,8 @@
 @synthesize forecastDaysArray;
 @synthesize tableView = _tableView;
 
+#pragma mark View 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // For tableView to display correctly
@@ -75,7 +77,7 @@
     forecastDaysArray = [[forecast objectForKey:@"txt_forecast"] objectForKey:@"forecastday"];
 }
 
-
+#pragma mark Table View
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -136,9 +138,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark Memory
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
