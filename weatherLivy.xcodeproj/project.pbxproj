@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		523390C816DE9D9000A37369 /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 523390C616DE9D9000A37369 /* weather.png */; };
+		523390C916DE9D9000A37369 /* weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 523390C716DE9D9000A37369 /* weather@2x.png */; };
 		52A7AF6416DDAAE2009FEFBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6316DDAAE2009FEFBA /* UIKit.framework */; };
 		52A7AF6616DDAAE2009FEFBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6516DDAAE2009FEFBA /* Foundation.framework */; };
 		52A7AF6816DDAAE2009FEFBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6716DDAAE2009FEFBA /* CoreGraphics.framework */; };
@@ -21,8 +23,6 @@
 		52A7AF8816DDAAE2009FEFBA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF8716DDAAE2009FEFBA /* SenTestingKit.framework */; };
 		52A7AF8916DDAAE2009FEFBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6316DDAAE2009FEFBA /* UIKit.framework */; };
 		52A7AF8A16DDAAE2009FEFBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6516DDAAE2009FEFBA /* Foundation.framework */; };
-		52A7AF9F16DDBD8B009FEFBA /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A7AF9E16DDBD8B009FEFBA /* weather.png */; };
-		52A7AFA116DDBD90009FEFBA /* weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A7AFA016DDBD90009FEFBA /* weather@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		523390C616DE9D9000A37369 /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather.png; sourceTree = "<group>"; };
+		523390C716DE9D9000A37369 /* weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather@2x.png"; sourceTree = "<group>"; };
 		52A7AF6016DDAAE2009FEFBA /* weatherLivy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherLivy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A7AF6316DDAAE2009FEFBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52A7AF6516DDAAE2009FEFBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -54,8 +56,6 @@
 		52A7AF7F16DDAAE2009FEFBA /* wlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wlViewController.m; sourceTree = "<group>"; };
 		52A7AF8616DDAAE2009FEFBA /* weatherLivyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatherLivyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A7AF8716DDAAE2009FEFBA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		52A7AF9E16DDBD8B009FEFBA /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weather.png; path = ../weather.png; sourceTree = "<group>"; };
-		52A7AFA016DDBD90009FEFBA /* weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weather@2x.png"; path = "../weather@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +127,8 @@
 		52A7AF6A16DDAAE2009FEFBA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				52A7AFA016DDBD90009FEFBA /* weather@2x.png */,
-				52A7AF9E16DDBD8B009FEFBA /* weather.png */,
+				523390C616DE9D9000A37369 /* weather.png */,
+				523390C716DE9D9000A37369 /* weather@2x.png */,
 				52A7AF6B16DDAAE2009FEFBA /* weatherLivy-Info.plist */,
 				52A7AF6C16DDAAE2009FEFBA /* InfoPlist.strings */,
 				52A7AF6F16DDAAE2009FEFBA /* main.m */,
@@ -217,8 +217,8 @@
 				52A7AF7816DDAAE2009FEFBA /* Default@2x.png in Resources */,
 				52A7AF7A16DDAAE2009FEFBA /* Default-568h@2x.png in Resources */,
 				52A7AF7D16DDAAE2009FEFBA /* MainStoryboard.storyboard in Resources */,
-				52A7AF9F16DDBD8B009FEFBA /* weather.png in Resources */,
-				52A7AFA116DDBD90009FEFBA /* weather@2x.png in Resources */,
+				523390C816DE9D9000A37369 /* weather.png in Resources */,
+				523390C916DE9D9000A37369 /* weather@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
