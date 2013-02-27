@@ -23,7 +23,7 @@
 		52A7AF8A16DDAAE2009FEFBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6516DDAAE2009FEFBA /* Foundation.framework */; };
 		52A7AF9216DDAAE2009FEFBA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A7AF9016DDAAE2009FEFBA /* InfoPlist.strings */; };
 		52A7AF9516DDAAE2009FEFBA /* weatherLivyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A7AF9416DDAAE2009FEFBA /* weatherLivyTests.m */; };
-		52A7AF9F16DDBD8B009FEFBA /* weather1.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A7AF9E16DDBD8B009FEFBA /* weather1.png */; };
+		52A7AF9F16DDBD8B009FEFBA /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A7AF9E16DDBD8B009FEFBA /* weather.png */; };
 		52A7AFA116DDBD90009FEFBA /* weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A7AFA016DDBD90009FEFBA /* weather@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -60,7 +60,7 @@
 		52A7AF9116DDAAE2009FEFBA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		52A7AF9316DDAAE2009FEFBA /* weatherLivyTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = weatherLivyTests.h; sourceTree = "<group>"; };
 		52A7AF9416DDAAE2009FEFBA /* weatherLivyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = weatherLivyTests.m; sourceTree = "<group>"; };
-		52A7AF9E16DDBD8B009FEFBA /* weather1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weather1.png; path = ../weather1.png; sourceTree = "<group>"; };
+		52A7AF9E16DDBD8B009FEFBA /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = weather.png; path = ../weather.png; sourceTree = "<group>"; };
 		52A7AFA016DDBD90009FEFBA /* weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "weather@2x.png"; path = "../weather@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				52A7AFA016DDBD90009FEFBA /* weather@2x.png */,
-				52A7AF9E16DDBD8B009FEFBA /* weather1.png */,
+				52A7AF9E16DDBD8B009FEFBA /* weather.png */,
 				52A7AF6B16DDAAE2009FEFBA /* weatherLivy-Info.plist */,
 				52A7AF6C16DDAAE2009FEFBA /* InfoPlist.strings */,
 				52A7AF6F16DDAAE2009FEFBA /* main.m */,
@@ -243,7 +243,7 @@
 				52A7AF7816DDAAE2009FEFBA /* Default@2x.png in Resources */,
 				52A7AF7A16DDAAE2009FEFBA /* Default-568h@2x.png in Resources */,
 				52A7AF7D16DDAAE2009FEFBA /* MainStoryboard.storyboard in Resources */,
-				52A7AF9F16DDBD8B009FEFBA /* weather1.png in Resources */,
+				52A7AF9F16DDBD8B009FEFBA /* weather.png in Resources */,
 				52A7AFA116DDBD90009FEFBA /* weather@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
