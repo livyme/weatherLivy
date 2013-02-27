@@ -92,7 +92,7 @@
     
     // Calculate the height for weather information
     CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:13] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping];
-    NSLog(@"%.2f",size.height);
+
     // Should add extra space for table view cell Title
     return size.height + 35;
 }
