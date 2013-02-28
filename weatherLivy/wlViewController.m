@@ -10,24 +10,31 @@
 //  Livy reserves the rights to invoke the API at any time.
 //  Please do not abuse this API.
 //
-#define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
-#define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
+//#define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
+#define weatherCurrentJSONURL [NSURL URLWithString:@"http://apiwwr33.wunderground.com/api/9e434b9ss8014f05a8/conditions/q/KS/Hays.json"]
+//#define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
+#define weatherForecastJSONURL [NSURL URLWithString:@"http://www333api.wunderground.com/api/9e434b98014f05ass8/forecast/q/KS/Hays.json"]
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuanlivy.png"]
 
 
 #import "wlViewController.h"
 
 @interface wlViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdateTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currentConditionLable;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureLable;
+
 @property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
 @property (weak, nonatomic) IBOutlet UIImageView *livyIconImage;
-@property (weak, nonatomic) IBOutlet UILabel *temperatureLable;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
 @property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 
 @property (nonatomic, readwrite) NSArray *forecastDaysArray;
+
 @end
 
 @implementation wlViewController
@@ -35,7 +42,7 @@
 @synthesize forecastDaysArray;
 @synthesize tableView = _tableView;
 
-#pragma mark View 
+#pragma mark View
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +54,12 @@
     
     // Display Livy's Signature Image
     livyIconImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:livyIconURL]];
+    
+    // Set all Label value to nil
+    locationLabel.text = nil;
+    lastUpdateTimeLabel.text = nil;
+    currentConditionLable.text = nil;
+    temperatureLable.text = nil;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -57,38 +70,50 @@
     [self getWeatherData];
 }
 
-#pragma mark get Data 
+#pragma mark get Data
 
 - (void) getWeatherData {
-    // Get Current Weather Information From Weather Underground website in JSON format
-    NSData* weatherData = [NSData dataWithContentsOfURL:weatherCurrentJSONURL];
     
-    // Parse JSON data, store it in a NSDictionary
+    // For error handling
     NSError *error;
     
-    NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
+    // Get Current Weather Information From Weather Underground website in JSON format
+    NSData* weatherData = [NSData dataWithContentsOfURL:weatherCurrentJSONURL options:0 error:&error];
     
-    // Display Location and Current Weather Information
-    NSDictionary *currentObservation = [weatherCurrentJSON objectForKey:@"current_observation"];
-    NSDictionary *displayLocation = [currentObservation objectForKey:@"display_location"];
-    locationLabel.text = [displayLocation objectForKey:@"full"];
-    lastUpdateTimeLabel.text = [currentObservation objectForKey:@"observation_time"];
-    currentConditionLable.text = [currentObservation objectForKey:@"weather"];
-    temperatureLable.text = [currentObservation objectForKey:@"temperature_string"];
-    
-    // Get current weather icon
-    NSString *imageURLString = [NSString stringWithFormat:@"http://icons.wxug.com/i/c/a/%@.gif",[currentObservation objectForKey:@"icon"]];
-    weatherImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLString]]];
-    
-    // Get forecast Weather Information From Weather Underground website in JSON format, same as above
-    NSDictionary *weatherForecastJSON = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:weatherForecastJSONURL] options:kNilOptions error:&error];
-    NSDictionary *forecast = [weatherForecastJSON objectForKey:@"forecast"];
-    
-    // Get future forcasts to be displayed in the tableView.
-    forecastDaysArray = [[forecast objectForKey:@"txt_forecast"] objectForKey:@"forecastday"];
-
-    // Reload table view if there is a refresh request.
-    [self.tableView reloadData];
+    // If error, display error in the label. Continue if no error.
+    if (error)
+        lastUpdateTimeLabel.text = error.localizedDescription;
+    else {
+        
+        // Parse JSON data, store it in a NSDictionary
+        // kNilOptions is just a constant 0
+        NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
+        if (error)
+            lastUpdateTimeLabel.text = error.localizedDescription;
+        else {
+            // Display Location and Current Weather Information
+            NSDictionary *currentObservation = [weatherCurrentJSON objectForKey:@"current_observation"];
+            NSDictionary *displayLocation = [currentObservation objectForKey:@"display_location"];
+            locationLabel.text = [displayLocation objectForKey:@"full"];
+            lastUpdateTimeLabel.text = [currentObservation objectForKey:@"observation_time"];
+            currentConditionLable.text = [currentObservation objectForKey:@"weather"];
+            temperatureLable.text = [currentObservation objectForKey:@"temperature_string"];
+            
+            // Get current weather icon
+            NSString *imageURLString = [NSString stringWithFormat:@"http://icons.wxug.com/i/c/a/%@.gif",[currentObservation objectForKey:@"icon"]];
+            weatherImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLString]]];
+            
+            // Get forecast Weather Information From Weather Underground website in JSON format, same as above
+            NSDictionary *weatherForecastJSON = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:weatherForecastJSONURL] options:kNilOptions error:&error];
+            NSDictionary *forecast = [weatherForecastJSON objectForKey:@"forecast"];
+            
+            // Get future forcasts to be displayed in the tableView.
+            forecastDaysArray = [[forecast objectForKey:@"txt_forecast"] objectForKey:@"forecastday"];
+            
+            // Reload table view if there is a refresh request.
+            [self.tableView reloadData];
+        }
+    }
 }
 
 #pragma mark Table View
@@ -106,7 +131,7 @@
     
     // Calculate the height for weather information
     CGSize size = [str sizeWithFont:[UIFont fontWithName:@"Helvetica" size:13] constrainedToSize:CGSizeMake(240, 999) lineBreakMode:NSLineBreakByWordWrapping];
-
+    
     // Should add extra space for table view cell Title
     return size.height + 35;
 }
