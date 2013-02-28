@@ -66,7 +66,8 @@
     [super viewWillAppear:animated];
     [self getWeatherData];
 }
-- (IBAction)refreshButtonPressed:(id)sender {
+
+- (IBAction)refreshButtonPressed {
     [self getWeatherData];
 }
 
