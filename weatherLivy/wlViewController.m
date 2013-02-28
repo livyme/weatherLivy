@@ -82,7 +82,9 @@
     
     // If error, display error in the label. Continue if no error.
     if (error)
-        lastUpdateTimeLabel.text = error.localizedDescription;
+        // lastUpdateTimeLabel.text = error.localizedDescription;
+        // Second thought... the error description doesn't provide good information
+        lastUpdateTimeLabel.text = @"Could not load weather data.";
     else {
         
         // Parse JSON data, store it in a NSDictionary
