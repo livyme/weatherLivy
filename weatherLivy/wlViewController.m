@@ -49,6 +49,7 @@
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self getWeatherData];
 }
 
@@ -81,6 +82,9 @@
     
     // Get future forcasts to be displayed in the tableView.
     forecastDaysArray = [[forecast objectForKey:@"txt_forecast"] objectForKey:@"forecastday"];
+
+    // Reload table view if there is a refresh request.
+    [self.tableView reloadData];
 }
 
 #pragma mark Table View
