@@ -55,7 +55,7 @@
     // Display Livy's Signature Image
     livyIconImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:livyIconURL]];
     
-    // Set all Label value to nil
+    // Set all Label text to nil in case of error reading JSON
     locationLabel.text = nil;
     lastUpdateTimeLabel.text = nil;
     currentConditionLable.text = nil;
