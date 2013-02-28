@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *livyIconImage;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLable;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 
 @property (nonatomic, readwrite) NSArray *forecastDaysArray;
 @end
@@ -50,6 +51,9 @@
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self getWeatherData];
+}
+- (IBAction)refreshButtonPressed:(id)sender {
     [self getWeatherData];
 }
 
