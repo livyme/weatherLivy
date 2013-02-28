@@ -92,7 +92,7 @@
         // kNilOptions is just a constant 0
         NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
         if (error)
-            lastUpdateTimeLabel.text = @"Could not load weather data.";
+            lastUpdateTimeLabel.text = error.localizedDescription;
         else {
             // Display Location and Current Weather Information
             NSDictionary *currentObservation = [weatherCurrentJSON objectForKey:@"current_observation"];
