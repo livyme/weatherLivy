@@ -72,10 +72,6 @@
     [self startLocationManager];
 }
 
-- (void) viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
 - (IBAction)refreshButtonPressed:(id)sender {
     // If refresh button is pressed, then reloate, and then get weather
     [self startLocationManager];
@@ -90,13 +86,17 @@
         locManager.delegate = self;
         // Don't need too much accuracy. +/- 100m would be enough for this test.
         locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        [locManager startUpdatingLocation];        
+        [locManager startUpdatingLocation];
     } else {
         lastUpdateTimeLabel.text = @"Location Service is disabled.";
     }
 }
 
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    
+    //location update should be stopped to save power
+    [locManager stopUpdatingLocation];
+    
     geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:^(NSArray *placemarks, NSError *error) {
         // Find the current placemark
@@ -106,21 +106,18 @@
         stateName = [placemark.addressDictionary objectForKey:@"State"];
         [self getWeatherData];
     }];
-    
-    //location update should be stopped to save power
-    [locManager stopUpdatingLocation];
 }
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     [locManager stopUpdatingLocation];
     switch (error.code) {
-        
-        // If the application specific location setting is disabled
+            
+            // If the application specific location setting is disabled
         case kCLErrorDenied:
             lastUpdateTimeLabel.text = @"Location service denied.";
             break;
-        
-        // Are you from Mars?
+            
+            // Are you from Mars?
         case kCLErrorLocationUnknown:
             lastUpdateTimeLabel.text = @"Location data unavailable";
             break;
@@ -159,7 +156,7 @@
         // lastUpdateTimeLabel.text = error.localizedDescription;
         // Second thought... the error description doesn't provide good information
         lastUpdateTimeLabel.text = @"Could not load weather data.";
-     } else {
+    } else {
         // Parse JSON data, store it in a NSDictionary
         // kNilOptions is just a constant 0
         NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
