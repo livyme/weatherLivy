@@ -11,7 +11,6 @@
 //  Please do not abuse this API.
 //
 #define weatherUndergroundJSONPrefix @"http://api.wunderground.com/api/9e434b98014f05a8/"
-#define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuanlivy.png"]
 
 
@@ -110,7 +109,6 @@
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"Error: %@",error.description);
 }
-
 
 #pragma mark get Data
 
