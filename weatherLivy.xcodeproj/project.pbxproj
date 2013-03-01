@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		523390C816DE9D9000A37369 /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 523390C616DE9D9000A37369 /* weather.png */; };
 		523390C916DE9D9000A37369 /* weather@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 523390C716DE9D9000A37369 /* weather@2x.png */; };
+		527CF3A916E10EA4007A712C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 527CF3A816E10EA4007A712C /* CoreLocation.framework */; };
 		52A7AF6416DDAAE2009FEFBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6316DDAAE2009FEFBA /* UIKit.framework */; };
 		52A7AF6616DDAAE2009FEFBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6516DDAAE2009FEFBA /* Foundation.framework */; };
 		52A7AF6816DDAAE2009FEFBA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6716DDAAE2009FEFBA /* CoreGraphics.framework */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		523390C616DE9D9000A37369 /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather.png; sourceTree = "<group>"; };
 		523390C716DE9D9000A37369 /* weather@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weather@2x.png"; sourceTree = "<group>"; };
+		527CF3A816E10EA4007A712C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		52A7AF6016DDAAE2009FEFBA /* weatherLivy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weatherLivy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A7AF6316DDAAE2009FEFBA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		52A7AF6516DDAAE2009FEFBA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				527CF3A916E10EA4007A712C /* CoreLocation.framework in Frameworks */,
 				52A7AF6416DDAAE2009FEFBA /* UIKit.framework in Frameworks */,
 				52A7AF6616DDAAE2009FEFBA /* Foundation.framework in Frameworks */,
 				52A7AF6816DDAAE2009FEFBA /* CoreGraphics.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		52A7AF6216DDAAE2009FEFBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				527CF3A816E10EA4007A712C /* CoreLocation.framework */,
 				52A7AF6316DDAAE2009FEFBA /* UIKit.framework */,
 				52A7AF6516DDAAE2009FEFBA /* Foundation.framework */,
 				52A7AF6716DDAAE2009FEFBA /* CoreGraphics.framework */,

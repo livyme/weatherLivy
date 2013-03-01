@@ -6,13 +6,11 @@
 //  Copyright (c) 2013 Livy. All rights reserved.
 //
 
-//  The following Weather Underground API was registered to Livy.... For testing purposes....
-//  Livy reserves the rights to invoke the API at any time.
+//  The embeded Weather Underground API was registered to Livy.... For testing purposes....
+//  Livy reserves the rights to NULL the API at any time.
 //  Please do not abuse this API.
 //
-#define weatherCurrentJSONURL [NSURL URLWithString:@"http://ap11112wi.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
-
-//#define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
+#define weatherUndergroundJSONPrefix @"http://api.wunderground.com/api/9e434b98014f05a8/"
 #define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuanlivy.png"]
 
@@ -35,12 +33,21 @@
 
 @property (nonatomic, readwrite) NSArray *forecastDaysArray;
 
+@property (nonatomic, readwrite) CLLocationManager *locManager;
+@property (strong, nonatomic) CLGeocoder *geocoder;
+
+@property (readwrite, nonatomic) NSString *cityName;
+@property (nonatomic, readwrite) NSString *stateName;
+
+
 @end
 
 @implementation wlViewController
 @synthesize locationLabel, lastUpdateTimeLabel, currentConditionLable, weatherImage, temperatureLable, livyIconImage;
 @synthesize forecastDaysArray;
 @synthesize tableView = _tableView;
+@synthesize locManager,geocoder;
+@synthesize cityName, stateName;
 
 #pragma mark View
 
@@ -56,45 +63,85 @@
     livyIconImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:livyIconURL]];
     
     // Set all Label text to nil in case of error reading JSON
+    livyIconImage.alpha = 0;
+    _tableView.alpha = 0;
     locationLabel.text = nil;
     lastUpdateTimeLabel.text = nil;
     currentConditionLable.text = nil;
     temperatureLable.text = nil;
+    
+    [self startLocationManager];
+    
 }
 
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self getWeatherData];
 }
 
 - (IBAction)refreshButtonPressed:(id)sender {
-    [self getWeatherData];
+    [self startLocationManager];
 }
+
+#pragma mark Get Location
+
+- (void) startLocationManager {
+    if (![CLLocationManager locationServicesEnabled]) {
+        lastUpdateTimeLabel.text = @"Locations services disabled";
+    } else {
+        lastUpdateTimeLabel.text = @"Locating your current location";
+        self.locManager = [[CLLocationManager alloc] init] ;
+        locManager.delegate = self;
+        locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        [locManager startUpdatingLocation];
+    }
+}
+
+- (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:^(NSArray *placemarks, NSError *error) {
+        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+        cityName = [placemark.addressDictionary objectForKey:@"City"];
+        stateName = [placemark.addressDictionary objectForKey:@"State"];
+        [self getWeatherData];
+    }];
+    [locManager stopUpdatingLocation];
+}
+
+- (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Error: %@",error.description);
+}
+
 
 #pragma mark get Data
 
 - (void) getWeatherData {
     
+    // Current City weather API URL
+    
+    NSString *currentCityCurrentWeatherAPIURLString = [[weatherUndergroundJSONPrefix stringByAppendingString:@"conditions/q/"] stringByAppendingString:[NSString stringWithFormat:@"%@/%@.json", stateName, cityName]];
+    
+    // Convert currentCityWeatherAPIURL to URL
+    NSURL *currentCityCurrentWeatherAPIURL = [NSURL URLWithString:currentCityCurrentWeatherAPIURLString];
+    
     // For error handling
     NSError *error;
     
     // Get Current Weather Information From Weather Underground website in JSON format
-    NSData* weatherData = [NSData dataWithContentsOfURL:weatherCurrentJSONURL options:0 error:&error];
+    NSData* weatherData = [NSData dataWithContentsOfURL:currentCityCurrentWeatherAPIURL options:0 error:&error];
     
     // If error, display error in the label. Continue if no error.
-    if (error) {
+    if (error) 
         // lastUpdateTimeLabel.text = error.localizedDescription;
         // Second thought... the error description doesn't provide good information
         lastUpdateTimeLabel.text = @"Could not load weather data.";
-        livyIconImage.alpha = 0;
-        _tableView.alpha = 0;
-    } else {
+     else {
         // Parse JSON data, store it in a NSDictionary
         // kNilOptions is just a constant 0
         NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
         if (error)
             lastUpdateTimeLabel.text = @"Could not load weather data.";
         else {
+            livyIconImage.alpha = 1;
             // Display Location and Current Weather Information
             NSDictionary *currentObservation = [weatherCurrentJSON objectForKey:@"current_observation"];
             NSDictionary *displayLocation = [currentObservation objectForKey:@"display_location"];
@@ -108,14 +155,22 @@
             weatherImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLString]]];
             
             // Get forecast Weather Information From Weather Underground website in JSON format, same as above
-            NSDictionary *weatherForecastJSON = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:weatherForecastJSONURL] options:kNilOptions error:&error];
-            NSDictionary *forecast = [weatherForecastJSON objectForKey:@"forecast"];
+            NSString *currentCityForecastWeatherAPIURLString = [[weatherUndergroundJSONPrefix stringByAppendingString:@"forecast/q/"] stringByAppendingString:[NSString stringWithFormat:@"%@/%@.json", stateName, cityName]];
+            NSURL *currentCityForecastWeatherAPIURL = [NSURL URLWithString:currentCityForecastWeatherAPIURLString];
             
-            // Get future forcasts to be displayed in the tableView.
-            forecastDaysArray = [[forecast objectForKey:@"txt_forecast"] objectForKey:@"forecastday"];
-            
-            // Reload table view if there is a refresh request.
-            [self.tableView reloadData];
+            NSDictionary *weatherForecastJSON = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:currentCityForecastWeatherAPIURL] options:kNilOptions error:&error];
+            if (error)
+                lastUpdateTimeLabel.text = @"Could not load weather data.";
+            else {
+                _tableView.alpha = 1;
+                NSDictionary *forecast = [weatherForecastJSON objectForKey:@"forecast"];
+                
+                // Get future forcasts to be displayed in the tableView.
+                forecastDaysArray = [[forecast objectForKey:@"txt_forecast"] objectForKey:@"forecastday"];
+                
+                // Reload table view if there is a refresh request.
+                [self.tableView reloadData];
+            }
         }
     }
 }

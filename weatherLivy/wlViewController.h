@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 //The protocols are added in order for the table view to display correctly.
-@interface wlViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface wlViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @end
