@@ -10,7 +10,9 @@
 //  Livy reserves the rights to invoke the API at any time.
 //  Please do not abuse this API.
 //
-#define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
+#define weatherCurrentJSONURL [NSURL URLWithString:@"http://ap11112wi.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
+
+//#define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
 #define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuanlivy.png"]
 
@@ -80,10 +82,14 @@
     NSData* weatherData = [NSData dataWithContentsOfURL:weatherCurrentJSONURL options:0 error:&error];
     
     // If error, display error in the label. Continue if no error.
-    if (error)
+    if (error) {
         // lastUpdateTimeLabel.text = error.localizedDescription;
         // Second thought... the error description doesn't provide good information
         lastUpdateTimeLabel.text = @"Could not load weather data.";
+        livyIconImage.alpha = 0;
+        _tableView.alpha = 0;
+        
+    }
     else {
         
         // Parse JSON data, store it in a NSDictionary
