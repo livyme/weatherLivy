@@ -11,9 +11,7 @@
 //  Please do not abuse this API.
 //
 #define weatherCurrentJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/conditions/q/KS/Hays.json"]
-//#define weatherCurrentJSONURL [NSURL URLWithString:@"http://apiwwr33.wunderground.com/api/9e434b9ss8014f05a8/conditions/q/KS/Hays.json"]
 #define weatherForecastJSONURL [NSURL URLWithString:@"http://api.wunderground.com/api/9e434b98014f05a8/forecast/q/KS/Hays.json"]
-//#define weatherForecastJSONURL [NSURL URLWithString:@"http://www333api.wunderground.com/api/9e434b98014f05ass8/forecast/q/KS/Hays.json"]
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuanlivy.png"]
 
 
@@ -66,6 +64,7 @@
     [super viewWillAppear:animated];
     [self getWeatherData];
 }
+
 - (IBAction)refreshButtonPressed:(id)sender {
     [self getWeatherData];
 }
@@ -159,7 +158,6 @@
     cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
     
     // Title
-    
     cell.textLabel.text = [[forecastDaysArray objectAtIndex:indexPath.row] objectForKey:@"title"];
     
     // Subtitle
