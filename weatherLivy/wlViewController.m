@@ -88,7 +88,6 @@
         lastUpdateTimeLabel.text = @"Could not load weather data.";
         livyIconImage.alpha = 0;
         _tableView.alpha = 0;
-        
     }
     else {
         
