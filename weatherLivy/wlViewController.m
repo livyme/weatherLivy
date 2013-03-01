@@ -13,7 +13,6 @@
 #define weatherUndergroundJSONPrefix @"http://api.wunderground.com/api/9e434b98014f05a8/"
 #define livyIconURL [NSURL URLWithString:@"https://dl.dropbox.com/u/7362629/zhuanlivy.png"]
 
-
 #import "wlViewController.h"
 
 @interface wlViewController ()
@@ -32,12 +31,11 @@
 
 @property (nonatomic, readwrite) NSArray *forecastDaysArray;
 
-@property (nonatomic, readwrite) CLLocationManager *locManager;
+@property (nonatomic, strong) CLLocationManager *locManager;
 @property (strong, nonatomic) CLGeocoder *geocoder;
 
 @property (readwrite, nonatomic) NSString *cityName;
 @property (nonatomic, readwrite) NSString *stateName;
-
 
 @end
 
@@ -69,8 +67,9 @@
     currentConditionLable.text = nil;
     temperatureLable.text = nil;
     
+    // Starts to find the current location
+    self.locManager = [[CLLocationManager alloc] init] ;
     [self startLocationManager];
-    
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -78,18 +77,20 @@
 }
 
 - (IBAction)refreshButtonPressed:(id)sender {
+    // If refresh button is pressed, then reloate, and then get weather
     [self startLocationManager];
 }
 
 #pragma mark Get Location
 
 - (void) startLocationManager {
+    // Global location services should be enabled.
     if (![CLLocationManager locationServicesEnabled]) {
-        lastUpdateTimeLabel.text = @"Locations services disabled";
+        lastUpdateTimeLabel.text = @"Location Service is disabled.";
     } else {
-        lastUpdateTimeLabel.text = @"Locating your current location";
-        self.locManager = [[CLLocationManager alloc] init] ;
+        lastUpdateTimeLabel.text = @"Locating your current location...";
         locManager.delegate = self;
+        // Don't need too much accuracy. +/- 100m would be enough for this test.
         locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         [locManager startUpdatingLocation];
     }
@@ -98,16 +99,43 @@
 - (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:[locations lastObject] completionHandler:^(NSArray *placemarks, NSError *error) {
-        CLPlacemark *placemark = [placemarks objectAtIndex:0];
+        // Find the current placemark
+        CLPlacemark *placemark = [placemarks lastObject];
+        // Get city and state name
         cityName = [placemark.addressDictionary objectForKey:@"City"];
         stateName = [placemark.addressDictionary objectForKey:@"State"];
         [self getWeatherData];
     }];
+    
+    //location update should be stopped to save power
     [locManager stopUpdatingLocation];
 }
 
 - (void) locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Error: %@",error.description);
+    [locManager stopUpdatingLocation];
+    switch (error.code) {
+        
+        // If the application specific location setting is disabled
+        case kCLErrorDenied:
+            lastUpdateTimeLabel.text = @"Location service denied.";
+            break;
+        
+        // Are you from Mars?
+        case kCLErrorLocationUnknown:
+            lastUpdateTimeLabel.text = @"Location data unavailable";
+            break;
+        default:
+            lastUpdateTimeLabel.text = @"Unknown error";
+            break;
+    }
+    
+    // If error happens, I'd like to hide the page elements.
+    _tableView.alpha = 0;
+    livyIconImage.alpha = 0;
+    locationLabel.text = nil;
+    currentConditionLable.text = nil;
+    temperatureLable.text = nil;
+    weatherImage.alpha = 0;
 }
 
 #pragma mark get Data
@@ -151,6 +179,7 @@
             // Get current weather icon
             NSString *imageURLString = [NSString stringWithFormat:@"http://icons.wxug.com/i/c/a/%@.gif",[currentObservation objectForKey:@"icon"]];
             weatherImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString: imageURLString]]];
+            weatherImage.alpha = 1;
             
             // Get forecast Weather Information From Weather Underground website in JSON format, same as above
             NSString *currentCityForecastWeatherAPIURLString = [[weatherUndergroundJSONPrefix stringByAppendingString:@"forecast/q/"] stringByAppendingString:[NSString stringWithFormat:@"%@/%@.json", stateName, cityName]];
