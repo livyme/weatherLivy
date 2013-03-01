@@ -88,9 +88,7 @@
         lastUpdateTimeLabel.text = @"Could not load weather data.";
         livyIconImage.alpha = 0;
         _tableView.alpha = 0;
-    }
-    else {
-        
+    } else {
         // Parse JSON data, store it in a NSDictionary
         // kNilOptions is just a constant 0
         NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
