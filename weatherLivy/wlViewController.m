@@ -85,14 +85,14 @@
 
 - (void) startLocationManager {
     // Global location services should be enabled.
-    if (![CLLocationManager locationServicesEnabled]) {
-        lastUpdateTimeLabel.text = @"Location Service is disabled.";
-    } else {
-        lastUpdateTimeLabel.text = @"Locating your current location...";
+    if (CLLocationManager.locationServicesEnabled) {
+        lastUpdateTimeLabel.text = @"Finding your current location...";
         locManager.delegate = self;
         // Don't need too much accuracy. +/- 100m would be enough for this test.
         locManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        [locManager startUpdatingLocation];
+        [locManager startUpdatingLocation];        
+    } else {
+        lastUpdateTimeLabel.text = @"Location Service is disabled.";
     }
 }
 
@@ -143,7 +143,6 @@
 - (void) getWeatherData {
     
     // Current City weather API URL
-    
     NSString *currentCityCurrentWeatherAPIURLString = [[weatherUndergroundJSONPrefix stringByAppendingString:@"conditions/q/"] stringByAppendingString:[NSString stringWithFormat:@"%@/%@.json", stateName, cityName]];
     
     // Convert currentCityWeatherAPIURL to URL
@@ -156,17 +155,17 @@
     NSData* weatherData = [NSData dataWithContentsOfURL:currentCityCurrentWeatherAPIURL options:0 error:&error];
     
     // If error, display error in the label. Continue if no error.
-    if (error) 
+    if (error) {
         // lastUpdateTimeLabel.text = error.localizedDescription;
         // Second thought... the error description doesn't provide good information
         lastUpdateTimeLabel.text = @"Could not load weather data.";
-     else {
+     } else {
         // Parse JSON data, store it in a NSDictionary
         // kNilOptions is just a constant 0
         NSDictionary *weatherCurrentJSON = [NSJSONSerialization JSONObjectWithData:weatherData options:kNilOptions error:&error];
-        if (error)
+        if (error) {
             lastUpdateTimeLabel.text = @"Could not load weather data.";
-        else {
+        } else {
             livyIconImage.alpha = 1;
             // Display Location and Current Weather Information
             NSDictionary *currentObservation = [weatherCurrentJSON objectForKey:@"current_observation"];
@@ -186,9 +185,9 @@
             NSURL *currentCityForecastWeatherAPIURL = [NSURL URLWithString:currentCityForecastWeatherAPIURLString];
             
             NSDictionary *weatherForecastJSON = [NSJSONSerialization JSONObjectWithData:[NSData dataWithContentsOfURL:currentCityForecastWeatherAPIURL] options:kNilOptions error:&error];
-            if (error)
+            if (error) {
                 lastUpdateTimeLabel.text = @"Could not load weather data.";
-            else {
+            } else {
                 _tableView.alpha = 1;
                 NSDictionary *forecast = [weatherForecastJSON objectForKey:@"forecast"];
                 
@@ -226,18 +225,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Standard cell, use UITableViewCellStyleSubtitle style
-    
     static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] ;
     }
     
     // Set up the cell...
-    
     // Formatting, add line breaking, unlimited number of lines, set font and size.
-    
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
