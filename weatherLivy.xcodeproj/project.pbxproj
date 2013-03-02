@@ -24,6 +24,8 @@
 		52A7AF8816DDAAE2009FEFBA /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF8716DDAAE2009FEFBA /* SenTestingKit.framework */; };
 		52A7AF8916DDAAE2009FEFBA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6316DDAAE2009FEFBA /* UIKit.framework */; };
 		52A7AF8A16DDAAE2009FEFBA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A7AF6516DDAAE2009FEFBA /* Foundation.framework */; };
+		52C3FB4B16E251A00040319B /* WLWeatherForecast.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C3FB4A16E251A00040319B /* WLWeatherForecast.m */; };
+		52C3FB4E16E2540B0040319B /* wlCurrentConditionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C3FB4D16E2540B0040319B /* wlCurrentConditionsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,10 @@
 		52A7AF7F16DDAAE2009FEFBA /* wlViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = wlViewController.m; sourceTree = "<group>"; };
 		52A7AF8616DDAAE2009FEFBA /* weatherLivyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = weatherLivyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A7AF8716DDAAE2009FEFBA /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		52C3FB4916E251A00040319B /* WLWeatherForecast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLWeatherForecast.h; sourceTree = "<group>"; };
+		52C3FB4A16E251A00040319B /* WLWeatherForecast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLWeatherForecast.m; sourceTree = "<group>"; };
+		52C3FB4C16E2540B0040319B /* wlCurrentConditionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wlCurrentConditionsViewController.h; sourceTree = "<group>"; };
+		52C3FB4D16E2540B0040319B /* wlCurrentConditionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wlCurrentConditionsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,10 @@
 				52A7AF7216DDAAE2009FEFBA /* wlAppDelegate.h */,
 				52A7AF7316DDAAE2009FEFBA /* wlAppDelegate.m */,
 				52A7AF7B16DDAAE2009FEFBA /* MainStoryboard.storyboard */,
+				52C3FB4C16E2540B0040319B /* wlCurrentConditionsViewController.h */,
+				52C3FB4D16E2540B0040319B /* wlCurrentConditionsViewController.m */,
+				52C3FB4916E251A00040319B /* WLWeatherForecast.h */,
+				52C3FB4A16E251A00040319B /* WLWeatherForecast.m */,
 				52A7AF7E16DDAAE2009FEFBA /* wlViewController.h */,
 				52A7AF7F16DDAAE2009FEFBA /* wlViewController.m */,
 				52A7AF6A16DDAAE2009FEFBA /* Supporting Files */,
@@ -259,6 +269,8 @@
 				52A7AF7016DDAAE2009FEFBA /* main.m in Sources */,
 				52A7AF7416DDAAE2009FEFBA /* wlAppDelegate.m in Sources */,
 				52A7AF8016DDAAE2009FEFBA /* wlViewController.m in Sources */,
+				52C3FB4B16E251A00040319B /* WLWeatherForecast.m in Sources */,
+				52C3FB4E16E2540B0040319B /* wlCurrentConditionsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
